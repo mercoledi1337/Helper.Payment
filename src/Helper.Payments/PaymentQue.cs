@@ -15,7 +15,6 @@ namespace Helper.Payments.Api
             using var scope = _service.CreateScope();
             var service = scope.ServiceProvider.GetService<IRabbitMQIntegration>();
             await service.ConsumeMEssage(scope);
-            //testgit
         }
     }
 }
