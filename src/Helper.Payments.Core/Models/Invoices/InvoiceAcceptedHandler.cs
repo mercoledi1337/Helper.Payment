@@ -14,7 +14,7 @@ namespace Helper.Payments.Core.Models.Invoices
         public async Task HandleAsync(InvoiceAccepted command)
         {
             var invoice = await _invoiceService.MakeInvoice(command.Dto);
-            _invoiceService.AddInvoiceProForma(invoice);
+            await _invoiceService.AddInvoiceProForma(invoice);
         }
     }
 }

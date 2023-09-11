@@ -7,6 +7,6 @@
         public string Fullname { get; set; }
         public string Email { get; set; }
         public DateTime RealisationStart { get; set; }
-        public DateTime RealisationEnd { get; set; }
+        public DateTime? RealisationEnd { get; set; }
     }
 }

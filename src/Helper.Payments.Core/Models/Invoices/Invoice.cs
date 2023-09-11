@@ -11,6 +11,8 @@ namespace Helper.Payments.Core.Models.Invoices
         public string Email { get; private set; }
         public string Street { get; private set; }
         public int BankAccountNumber { get; private set; }
+        public DateTime RealisationStart { get; private set; }
+        public DateTime? RealisationEnd { get; private set; }
 
         private Invoice(InvoiceId id, OfferacceptedEvent invoiceDto, Street street, BankAccountNumber bankAccountNumber)
         {
@@ -20,6 +22,8 @@ namespace Helper.Payments.Core.Models.Invoices
             Fullname = invoiceDto.Fullname;
             Street = street;
             BankAccountNumber = bankAccountNumber;
+            RealisationEnd = invoiceDto.RealisationEnd;
+            RealisationStart = invoiceDto.RealisationStart;
         }
 
         public static Invoice Create(OfferacceptedEvent invoiceDto, Street street, BankAccountNumber bankAccountNumber)
