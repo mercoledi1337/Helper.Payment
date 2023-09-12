@@ -1,5 +1,7 @@
 ﻿using Helper.Payments.Core.Abstractions;
 using Helper.Payments.Core.Data;
+using Helper.Payments.Core.Integrations;
+using Helper.Payments.Core.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,6 +11,8 @@ namespace Helper.Payments.Core
     {
         public static IServiceCollection AddDb(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<IInvoiceService, InvoiceService>();
+            services.AddScoped<IMessageBrokerClient, RabbitMQIntegration>();
             services.AddSql(configuration);
 
             return services;

@@ -1,19 +1,22 @@
 using Helper.Payments.Api;
 using Helper.Payments.Core;
 using Helper.Payments.Core.Integrations;
+using Helper.Payments.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddApplication();
+builder.Services.AddDb(builder.Configuration);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDb(builder.Configuration);
 
-builder.Services.AddHostedService<PaymentQue>();
-builder.Services.AddScoped<IRabbitMQIntegration, RabbitMQIntegration>();
+
+builder.Services.AddHostedService<PaymentBackgroudService>();
+
+
 
 var app = builder.Build();
 

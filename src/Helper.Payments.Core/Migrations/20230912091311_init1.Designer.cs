@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Helper.Payments.Core.Migrations
 {
     [DbContext(typeof(PaymentDbContext))]
-    [Migration("20230911110844_dateInIvoice")]
-    partial class dateInIvoice
+    [Migration("20230912091311_init1")]
+    partial class init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

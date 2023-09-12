@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Helper.Payments.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class init2 : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,11 +20,13 @@ namespace Helper.Payments.Core.Migrations
                 columns: table => new
                 {
                     InvoiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: true),
+                    Price = table.Column<double>(type: "float", nullable: false),
                     Fullname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BankAccountNumber = table.Column<int>(type: "int", nullable: true)
+                    BankAccountNumber = table.Column<long>(type: "bigint", nullable: false),
+                    RealisationStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RealisationEnd = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

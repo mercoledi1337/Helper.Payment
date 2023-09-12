@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Helper.Payments.Core.Migrations
 {
     [DbContext(typeof(PaymentDbContext))]
-    [Migration("20230907101551_init2")]
-    partial class init2
+    [Migration("20230912084105_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,14 @@ namespace Helper.Payments.Core.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Helper.Payments.Core.Models.Invoice", b =>
+            modelBuilder.Entity("Helper.Payments.Core.Models.Invoices.Invoice", b =>
                 {
                     b.Property<Guid>("InvoiceId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("BankAccountNumber")
-                        .HasColumnType("int");
+                    b.Property<long>("BankAccountNumber")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -39,8 +40,14 @@ namespace Helper.Payments.Core.Migrations
                     b.Property<string>("Fullname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Price")
+                    b.Property<double>("Price")
                         .HasColumnType("float");
+
+                    b.Property<DateTime?>("RealisationEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RealisationStart")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");

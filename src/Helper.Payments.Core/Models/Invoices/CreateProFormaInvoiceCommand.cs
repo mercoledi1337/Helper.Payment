@@ -3,6 +3,6 @@ using Helper.Payments.Shared.DTO;
 
 namespace Helper.Payments.Core.Models.Invoices
 {
-    public sealed record InvoiceAccepted(OfferacceptedEvent Dto) : ICommand;
+    public sealed record CreateProFormaInvoiceCommand(OfferacceptedEvent Dto) : ICommand;
 
 }

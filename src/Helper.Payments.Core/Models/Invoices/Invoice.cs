@@ -6,15 +6,15 @@ namespace Helper.Payments.Core.Models.Invoices
     public class Invoice
     {
         public Guid InvoiceId { get; }
-        public double Price { get; private set; }
-        public string Fullname { get; private set; }
-        public string Email { get; private set; }
-        public string Street { get; private set; }
-        public int BankAccountNumber { get; private set; }
-        public DateTime RealisationStart { get; private set; }
-        public DateTime? RealisationEnd { get; private set; }
+        public double Price { get; set; }
+        public string Fullname { get; set; }
+        public string Email { get;  set; }
+        public string Street { get; set; }
+        public int BankAccountNumber { get;set; }
+        public DateTime RealisationStart { get; set; }
+        public DateTime? RealisationEnd { get; set; }
 
-        private Invoice(InvoiceId id, OfferacceptedEvent invoiceDto, Street street, BankAccountNumber bankAccountNumber)
+        private Invoice(Guid id, OfferacceptedEvent invoiceDto, string street, int bankAccountNumber)
         {
             InvoiceId = id;
             Email = invoiceDto.Email;
@@ -26,9 +26,9 @@ namespace Helper.Payments.Core.Models.Invoices
             RealisationStart = invoiceDto.RealisationStart;
         }
 
-        public static Invoice Create(OfferacceptedEvent invoiceDto, Street street, BankAccountNumber bankAccountNumber)
+        public static Invoice Create(OfferacceptedEvent invoiceDto, string street, int bankAccountNumber)
         {
-            InvoiceId id = invoiceDto.OfferId;
+            Guid id = invoiceDto.OfferId;
             return new Invoice(id, invoiceDto, street, bankAccountNumber);
         }
 

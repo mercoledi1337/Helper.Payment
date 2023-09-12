@@ -10,15 +10,12 @@ namespace Helper.Payments.Api.Controllers
     [Route("Payments")]
     public class PaymentsController : Controller
     {
-        private readonly IOfferService _offerService;
         private readonly IInvoiceService _invoiceService;
-        private readonly IRabbitMQIntegration _rabbitMQIntegration;
+        private readonly IMessageBrokerClient _rabbitMQIntegration;
 
-        public PaymentsController(IOfferService offerService
-            ,IInvoiceService invoiceService
-            ,IRabbitMQIntegration rabbitMQIntegration)
+        public PaymentsController(IInvoiceService invoiceService
+            ,IMessageBrokerClient rabbitMQIntegration)
         {
-            _offerService = offerService;
             _invoiceService = invoiceService;
             _rabbitMQIntegration = rabbitMQIntegration;
         }

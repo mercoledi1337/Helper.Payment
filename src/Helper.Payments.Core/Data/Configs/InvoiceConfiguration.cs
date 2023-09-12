@@ -20,6 +20,9 @@ namespace Helper.Payments.Core.Data.Configs
 
             builder.Property(x => x.BankAccountNumber);
 
+            builder.Property(x => x.RealisationStart);
+            builder.Property(x => x.RealisationEnd);
+
         }
     }
 }

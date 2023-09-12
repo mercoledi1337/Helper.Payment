@@ -17,21 +17,21 @@ namespace Helper.Payments.Core.Services
 
         public async Task<Invoice> MakeInvoice(OfferacceptedEvent dto)
         {
-            var tmp = Invoice.Create(dto, "skrt", new BankAccountNumber(999) );
+            var tmp = Invoice.Create(dto, "skrt", 1000 );
             return tmp;
         }
 
         public async Task AddInvoiceProForma(Invoice invoice)
         {
-            await _paymentDbContext.Invoices.AddAsync(invoice);
-            await _paymentDbContext.SaveChangesAsync();
+            try
+            {
+                await _paymentDbContext.Invoices.AddAsync(invoice);
+                await _paymentDbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
-
-        //public async Task<List<Guid>> Skrt(Guid OfferId)
-        //{
-        //    FormattableString q = $"SELECT * FROM api.Offers WHERE Offerid = {OfferId}";
-        //    var blogNames = _paymentDbContext.Database.SqlQuery <Guid >(q).ToList();
-        //    return blogNames;
-        //}
     }
 }
