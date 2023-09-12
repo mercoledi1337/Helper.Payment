@@ -28,9 +28,17 @@ namespace Helper.Payments.Api.Controllers
         [HttpPost("Payment")]
         public async Task<IActionResult> InvoicePayment(Guid userId)
         {
-
+            await _invoiceService.PayTheInvoice(userId);
             await _rabbitMQIntegration.Publish(userId.ToString());
             return Ok(userId);
+        }
+
+        [HttpGet("UeserInvoices")]
+        public async Task<IActionResult> GetAll(string mail)
+        {
+            var Invoices = await _invoiceService.GetAllUserInvoiceByMail(mail);
+           
+            return Ok(Invoices);
         }
     }
 }

@@ -33,5 +33,14 @@ namespace Helper.Payments.Core.Services
                 Console.WriteLine(ex);
             }
         }
+
+        public async Task PayTheInvoice(Guid InvoiceId)
+        {
+            var Invoice = await _paymentDbContext.Invoices.FirstOrDefaultAsync(x => x.InvoiceId == InvoiceId);
+            Invoice.IsPaid = true;
+            await _paymentDbContext.SaveChangesAsync();//może tak zostać czy do invoicerepository zrobić?
+        }
+
+        public async Task<List<Invoice>> GetAllUserInvoiceByMail(string email) => await _paymentDbContext.Invoices.Where(x => x.Email == email).ToListAsync();
     }
 }

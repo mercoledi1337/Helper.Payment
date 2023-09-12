@@ -1,7 +1,5 @@
 using Helper.Payments.Api;
 using Helper.Payments.Core;
-using Helper.Payments.Core.Integrations;
-using Helper.Payments.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

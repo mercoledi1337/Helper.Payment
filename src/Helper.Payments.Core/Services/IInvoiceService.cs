@@ -7,6 +7,8 @@ namespace Helper.Payments.Core.Services
     {
         Task<Invoice> MakeInvoice(OfferacceptedEvent dto);
         Task AddInvoiceProForma(Invoice invoice);
+        Task PayTheInvoice(Guid InvoiceId);
+        Task<List<Invoice>> GetAllUserInvoiceByMail(string email);
         //opłać //utwórz fakture //Lista platności 
     }
 }
