@@ -41,15 +41,15 @@ namespace Helper.Payments.Core.Integrations
         public async Task ConsumeMessage(IServiceScope serviceScope)
         {
             var service = serviceScope.ServiceProvider.GetService<IMessageBrokerClient>();
-            
+
             var _factory = new ConnectionFactory()
             {
                 Uri = new Uri(_configuration.GetValue<string>("QueueHostName")),
                 DispatchConsumersAsync = true
             };
             var _connection = _factory.CreateConnection();
-            
-                using (var _channel = _connection.CreateModel())
+
+            using (var _channel = _connection.CreateModel())
                 {
                     _channel.QueueDeclare(queue: _configuration.GetValue<string>("QueueInvoice"),
                         durable: false,
