@@ -34,7 +34,7 @@ namespace Helper.Payments.Core.Integrations
                 channel.BasicPublish(exchange: "",
                             routingKey: _configuration.GetValue<string>("QueuePayment"),
                             basicProperties: null, body); // wysyłamy do kolejki
-                connection.Close();
+                
             }
         }
 
