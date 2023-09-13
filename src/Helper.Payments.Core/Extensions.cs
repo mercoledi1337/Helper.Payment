@@ -5,6 +5,7 @@ using Helper.Payments.Core.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+
 namespace Helper.Payments.Core
 {
     public static class Extensions
@@ -12,6 +13,8 @@ namespace Helper.Payments.Core
         public static IServiceCollection AddDb(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IInvoiceService, InvoiceService>();
+            services.AddScoped<IPdfGenerator, PdfGenerator1>();
+            services.AddScoped<IMailClient, MailClient>();
             services.AddScoped<IMessageBrokerClient, RabbitMQIntegration>();
             services.AddSql(configuration);
 

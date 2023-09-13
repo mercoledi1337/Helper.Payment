@@ -8,5 +8,7 @@
         public string Email { get; set; }
         public DateTime RealisationStart { get; set; }
         public DateTime? RealisationEnd { get; set; }
+        public DateTime PaymentDate { get; set; }
+
     }
 }

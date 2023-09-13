@@ -13,6 +13,7 @@ namespace Helper.Payments.Core.Models.Invoices
         public int BankAccountNumber { get;set; }
         public DateTime RealisationStart { get; set; }
         public DateTime? RealisationEnd { get; set; }
+        public DateTime PaymentDate { get; set; }
         public bool IsPaid { get; set; }
 
         private Invoice(Guid id, OfferacceptedEvent invoiceDto, string street, int bankAccountNumber)
@@ -26,6 +27,7 @@ namespace Helper.Payments.Core.Models.Invoices
             RealisationEnd = invoiceDto.RealisationEnd;
             RealisationStart = invoiceDto.RealisationStart;
             IsPaid = false;
+            PaymentDate = invoiceDto.PaymentDate;
         }
 
         public static Invoice Create(OfferacceptedEvent invoiceDto, string street, int bankAccountNumber)

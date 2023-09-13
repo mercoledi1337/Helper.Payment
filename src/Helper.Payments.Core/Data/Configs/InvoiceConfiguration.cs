@@ -23,6 +23,7 @@ namespace Helper.Payments.Core.Data.Configs
             builder.Property(x => x.RealisationStart);
             builder.Property(x => x.RealisationEnd);
             builder.Property(x => x.IsPaid);
+            builder.Property(x => x.PaymentDate);
 
         }
     }

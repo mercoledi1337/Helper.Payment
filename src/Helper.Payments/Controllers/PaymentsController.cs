@@ -1,8 +1,5 @@
-﻿using Helper.Payments.Core.Integrations;
-using Helper.Payments.Core.Services;
+﻿using Helper.Payments.Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using RabbitMQ.Client;
-using System.Text;
 
 namespace Helper.Payments.Api.Controllers
 {
@@ -11,25 +8,21 @@ namespace Helper.Payments.Api.Controllers
     public class PaymentsController : Controller
     {
         private readonly IInvoiceService _invoiceService;
-        private readonly IMessageBrokerClient _rabbitMQIntegration;
 
-        public PaymentsController(IInvoiceService invoiceService
-            ,IMessageBrokerClient rabbitMQIntegration)
+        public PaymentsController(IInvoiceService invoiceService)
         {
             _invoiceService = invoiceService;
-            _rabbitMQIntegration = rabbitMQIntegration;
         }
-        [HttpPost]
-        public async Task<IActionResult> PostInvoice(Guid offer)
-        {
-            //_invoiceService.Skrt(offer).Result
-            return Ok();
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> PostInvoice(Guid offer)
+        //{
+        //    //_invoiceService.Skrt(offer).Result
+        //    return Ok();
+        //}
         [HttpPost("Payment")]
-        public async Task<IActionResult> InvoicePayment(Guid userId)
+        public async Task<IActionResult> InvoicePayment(Guid InvoiceId,Guid userId)
         {
-            await _invoiceService.PayTheInvoice(userId);
-            await _rabbitMQIntegration.Publish(userId.ToString());
+            await _invoiceService.PayTheInvoice(InvoiceId,userId);
             return Ok(userId);
         }
 
@@ -37,7 +30,6 @@ namespace Helper.Payments.Api.Controllers
         public async Task<IActionResult> GetAll(string mail)
         {
             var Invoices = await _invoiceService.GetAllUserInvoiceByMail(mail);
-           
             return Ok(Invoices);
         }
     }
