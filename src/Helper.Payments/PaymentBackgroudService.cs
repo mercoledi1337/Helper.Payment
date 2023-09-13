@@ -18,8 +18,8 @@ namespace Helper.Payments.Api
             while (true)
             {
                 var service = scope.ServiceProvider.GetService<IMessageBrokerClient>();
-                await service.ConsumeMessage(scope);
-                await Task.Delay(1000);
+                try { await service.ConsumeMessage(scope); }
+                catch (Exception ex) { Console.WriteLine(ex); }
             }
         }
     }
