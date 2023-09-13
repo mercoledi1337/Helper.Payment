@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Helper.Payments.Core.Migrations
 {
     [DbContext(typeof(PaymentDbContext))]
-    [Migration("20230912084105_init")]
+    [Migration("20230913125249_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -31,14 +31,20 @@ namespace Helper.Payments.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<long>("BankAccountNumber")
-                        .HasColumnType("bigint");
+                    b.Property<int>("BankAccountNumber")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Fullname")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");

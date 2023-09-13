@@ -24,9 +24,11 @@ namespace Helper.Payments.Core.Migrations
                     Fullname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BankAccountNumber = table.Column<long>(type: "bigint", nullable: false),
+                    BankAccountNumber = table.Column<int>(type: "int", nullable: false),
                     RealisationStart = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RealisationEnd = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    RealisationEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsPaid = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
