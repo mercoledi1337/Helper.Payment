@@ -19,7 +19,9 @@ namespace Helper.Payments.Core.Integrations
         }
         public async Task Publish(string @event)
         {
-            var factory = new ConnectionFactory() { HostName = _configuration.GetValue<string>("QueueHostName") }; // adres do serwera rabbitMQ // tu zmienną potem
+            var factory = new ConnectionFactory() {
+                Uri = new Uri(_configuration.GetValue<string>("QueueHostName"))
+            };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
@@ -32,6 +34,7 @@ namespace Helper.Payments.Core.Integrations
                 channel.BasicPublish(exchange: "",
                             routingKey: _configuration.GetValue<string>("QueuePayment"),
                             basicProperties: null, body); // wysyłamy do kolejki
+                connection.Close();
             }
         }
 
@@ -40,9 +43,12 @@ namespace Helper.Payments.Core.Integrations
             var service = serviceScope.ServiceProvider.GetService<IMessageBrokerClient>();
             
             var _factory = new ConnectionFactory()
-            { HostName = _configuration.GetValue<string>("QueueHostName"), DispatchConsumersAsync = true };
+            {
+                Uri = new Uri(_configuration.GetValue<string>("QueueHostName")),
+                DispatchConsumersAsync = true
+            };
             var _connection = _factory.CreateConnection();
-
+            
                 using (var _channel = _connection.CreateModel())
                 {
                     _channel.QueueDeclare(queue: _configuration.GetValue<string>("QueueInvoice"),
@@ -68,8 +74,10 @@ namespace Helper.Payments.Core.Integrations
 
                     _channel.BasicConsume(queue: _configuration.GetValue<string>("QueueInvoice"), autoAck: true, consumer: consumer);
                     await Task.Delay(1);
+                _channel.Close();
                
             }
+            _connection.Close();
         }
 
         private static async Task HandleOfferAccepted(IServiceScope serviceScope, OfferacceptedEvent AcceptedOffer)
