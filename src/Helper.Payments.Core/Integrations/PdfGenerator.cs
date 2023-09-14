@@ -1,6 +1,6 @@
 ﻿using Helper.Payments.Core.Models.Invoices;
-using PdfSharp;
-using PdfSharp.Pdf;
+using PdfSharpCore;
+using PdfSharpCore.Pdf;
 using TheArtOfDev.HtmlRenderer.PdfSharp;
 
 namespace Helper.Payments.Core.Integrations
@@ -172,8 +172,6 @@ namespace Helper.Payments.Core.Integrations
             PdfDocument pdf = PdfGenerator.GeneratePdf(html, PageSize.A4, 20);
             
             var config = new PdfGenerateConfig();
-
-            
 
             using (MemoryStream stream = new MemoryStream())
 

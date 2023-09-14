@@ -1,4 +1,4 @@
-﻿using PdfSharp.Pdf;
+﻿
 
 namespace Helper.Payments.Core.Integrations
 {
