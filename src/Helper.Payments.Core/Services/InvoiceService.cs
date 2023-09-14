@@ -10,12 +10,12 @@ namespace Helper.Payments.Core.Services
     internal class InvoiceService : IInvoiceService
     {
         private readonly PaymentDbContext _paymentDbContext;
-        private readonly IMessageBrokerClient _messageBrokerClient;
+        private readonly IMessagePublisher _messageBrokerClient;
         private readonly IMailClient _mailClient;
         private readonly IPdfGenerator _pdfGenerator;
 
         public InvoiceService(PaymentDbContext paymentDbContext
-            , IMessageBrokerClient messageBrokerClient
+            , IMessagePublisher messageBrokerClient
             , IMailClient mailClient
             , IPdfGenerator pdfGenerator)
         {
@@ -55,7 +55,7 @@ namespace Helper.Payments.Core.Services
             Invoice.IsPaid = true;
             await _paymentDbContext.SaveChangesAsync();//może tak zostać czy do invoicerepository zrobić?
 
-            await _messageBrokerClient.Publish(UserId.ToString());
+             _messageBrokerClient.Publish(UserId.ToString());
             var document = _pdfGenerator.GenerateInvoice(Invoice);
             await _mailClient.SendMailWithPdf(Invoice.Email, "Invoice number:" + 3 +"", "Your invoice", document);
         }

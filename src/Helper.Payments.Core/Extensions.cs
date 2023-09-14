@@ -15,7 +15,8 @@ namespace Helper.Payments.Core
             services.AddScoped<IInvoiceService, InvoiceService>();
             services.AddScoped<IPdfGenerator, PdfGenerator1>();
             services.AddScoped<IMailClient, MailClient>();
-            services.AddScoped<IMessageBrokerClient, RabbitMQIntegration>();
+            services.AddSingleton<IMessagePublisher, MessagePublisher>();
+            services.AddSingleton<IMessageConsumer, MessageConsumer>();
             services.AddSql(configuration);
 
             return services;
