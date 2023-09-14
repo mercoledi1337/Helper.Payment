@@ -13,13 +13,13 @@ namespace Helper.Payments.Api
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             using var scope = _service.CreateScope();
-            
-
+            var service = scope.ServiceProvider.GetService<IMessageBrokerClient>();
             while (true)
             {
-                var service = scope.ServiceProvider.GetService<IMessageBrokerClient>();
+                
                 try { await service.ConsumeMessage(scope); }
                 catch (Exception ex) { Console.WriteLine(ex); }
+                await Task.Delay(100);
             }
         }
     }

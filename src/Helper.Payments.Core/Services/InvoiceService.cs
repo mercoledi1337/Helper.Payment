@@ -4,9 +4,6 @@ using Helper.Payments.Core.Integrations;
 using Helper.Payments.Core.Models.Invoices;
 using Helper.Payments.Shared.DTO;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Reflection.Metadata;
-using TheArtOfDev.HtmlRenderer.PdfSharp;
 
 namespace Helper.Payments.Core.Services
 {
@@ -57,6 +54,7 @@ namespace Helper.Payments.Core.Services
             }
             Invoice.IsPaid = true;
             await _paymentDbContext.SaveChangesAsync();//może tak zostać czy do invoicerepository zrobić?
+
             await _messageBrokerClient.Publish(UserId.ToString());
             var document = _pdfGenerator.GenerateInvoice(Invoice);
             await _mailClient.SendMailWithPdf(Invoice.Email, "Invoice number:" + 3 +"", "Your invoice", document);

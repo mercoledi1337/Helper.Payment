@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RabbitMQ.Client;
 
 namespace Helper.Payments.Core.Integrations
 {
@@ -6,6 +7,6 @@ namespace Helper.Payments.Core.Integrations
     {
         public Task Publish(string @event);
         public Task ConsumeMessage(IServiceScope serviceScope);
-
+        public IConnection CreateConnection(bool isConsuming);
     }
 }
