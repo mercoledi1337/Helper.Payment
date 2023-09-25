@@ -55,7 +55,7 @@ namespace Helper.Payments.Core.Services
             Invoice.IsPaid = true;
             await _paymentDbContext.SaveChangesAsync();//może tak zostać czy do invoicerepository zrobić?
 
-             _messageBrokerClient.Publish(UserId.ToString());
+             _messageBrokerClient.Publish(InvoiceId.ToString());
             var document = _pdfGenerator.GenerateInvoice(Invoice);
             await _mailClient.SendMailWithPdf(Invoice.Email, "Invoice number:" + 3 +"", "Your invoice", document);
         }
